@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Stopwatch</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12,6 12,12 16,14"></polyline>
+                </svg>
+                <h1>StopWatch Pro</h1>
+            </div>
+            <div class="theme-toggle" id="themeToggle">
+                <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+                <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </div>
+        </header>
+
+        <!-- Main Stopwatch -->
+        <main class="main-content">
+            <div class="stopwatch-container">
+                <!-- Progress Ring -->
+                <div class="progress-ring">
+                    <svg class="progress-svg" width="320" height="320">
+                        <circle class="progress-background" cx="160" cy="160" r="140"></circle>
+                        <circle class="progress-bar" cx="160" cy="160" r="140" id="progressCircle"></circle>
+                    </svg>
+                    
+                    <!-- Time Display -->
+                    <div class="time-display">
+                        <div class="main-time" id="mainTime">00:00:00</div>
+                        <div class="milliseconds" id="milliseconds">000</div>
+                    </div>
+                </div>
+
+                <!-- Control Buttons -->
+                <div class="controls">
+                    <button class="btn btn-secondary" id="resetBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="1,4 1,10 7,10"></polyline>
+                            <path d="M3.51,15a9,9,0,0,0,2.13,3.09,9,9,0,0,0,13.72,0,9,9,0,0,0,0-12.72,9,9,0,0,0-13.72,0A8.5,8.5,0,0,0,1.17,8.5"></path>
+                        </svg>
+                        Reset
+                    </button>
+                    
+                    <button class="btn btn-primary" id="startStopBtn">
+                        <svg class="play-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="5,3 19,12 5,21 5,3"></polygon>
+                        </svg>
+                        <svg class="pause-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="6" y="4" width="4" height="16"></rect>
+                            <rect x="14" y="4" width="4" height="16"></rect>
+                        </svg>
+                        Start
+                    </button>
+                    
+                    <button class="btn btn-accent" id="lapBtn" disabled>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M12,1v6M12,17v6M5.64,5.64l4.24,4.24M14.12,14.12l4.24,4.24M1,12h6M17,12h6M5.64,18.36l4.24-4.24M14.12,9.88l4.24-4.24"></path>
+                        </svg>
+                        Lap
+                    </button>
+                </div>
+
+                <!-- Statistics -->
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Total Laps</div>
+                        <div class="stat-value" id="totalLaps">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Best Lap</div>
+                        <div class="stat-value" id="bestLap">--:--:--</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Average</div>
+                        <div class="stat-value" id="avgLap">--:--:--</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lap Times -->
+            <div class="lap-times-container">
+                <div class="lap-header">
+                    <h3>Lap Times</h3>
+                    <button class="clear-laps" id="clearLaps">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="3,6 5,6 21,6"></polyline>
+                            <path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6M8,6V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6"></path>
+                        </svg>
+                        Clear
+                    </button>
+                </div>
+                <div class="lap-list" id="lapList">
+                    <div class="no-laps">No lap times recorded yet</div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Keyboard Shortcuts -->
+        <div class="shortcuts">
+            <div class="shortcut-item">
+                <kbd>Space</kbd>
+                <span>Start/Stop</span>
+            </div>
+            <div class="shortcut-item">
+                <kbd>L</kbd>
+                <span>Lap</span>
+            </div>
+            <div class="shortcut-item">
+                <kbd>R</kbd>
+                <span>Reset</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
